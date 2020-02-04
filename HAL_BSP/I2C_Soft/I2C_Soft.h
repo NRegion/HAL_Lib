@@ -34,3 +34,5 @@ uint8_t IIC_Read_nByte(uint8_t SlaveAddress, uint8_t REG_Address, uint8_t len, u
 void delay_us(uint32_t i);
 
 #endif
+
+/**************END OF FILE************/

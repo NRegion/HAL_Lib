@@ -18,58 +18,56 @@
 void delay_us(uint32_t i)
 {
     uint32_t temp;
-    SysTick->LOAD=9*i;              //设置重装数值, 72MHZ时
-    SysTick->CTRL=0X01;             //使能，减到零是无动作，采用外部时钟源
-    SysTick->VAL=0;                 //清零计数器
-    
+    SysTick->LOAD = 9 * i; //设置重装数值, 72MHZ时
+    SysTick->CTRL = 0X01;  //使能，减到零是无动作，采用外部时钟源
+    SysTick->VAL = 0;      //清零计数器
+
     do
     {
-        temp=SysTick->CTRL;          //读取当前倒计数值
-    }
-    while((temp&0x01)&&(!(temp&(1<<16))));     //等待时间到达
-        
-    SysTick->CTRL=0;         //关闭计数器
-    SysTick->VAL=0;          //清空计数器
+        temp = SysTick->CTRL;                         //读取当前倒计数值
+    } while ((temp & 0x01) && (!(temp & (1 << 16)))); //等待时间到达
+
+    SysTick->CTRL = 0; //关闭计数器
+    SysTick->VAL = 0;  //清空计数器
 }
 
 void SDA_Output(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_InitStruct.Pin = NRI2C_SDA_PIN;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(NRI2C_SDA_GPIO,&GPIO_InitStruct);
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.Pin = NRI2C_SDA_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    HAL_GPIO_Init(NRI2C_SDA_GPIO, &GPIO_InitStruct);
 }
- 
- 
+
 void SDA_Input(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_InitStruct.Pin = NRI2C_SDA_PIN;
-	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(NRI2C_SDA_GPIO,&GPIO_InitStruct);
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.Pin = NRI2C_SDA_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    HAL_GPIO_Init(NRI2C_SDA_GPIO, &GPIO_InitStruct);
 }
 
 void SCL_Output(void)
 {
-	GPIO_InitTypeDef GPIO_InitStruct;
-	GPIO_InitStruct.Pin = NRI2C_SCL_PIN;
-	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-	GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-	HAL_GPIO_Init(NRI2C_SCL_GPIO,&GPIO_InitStruct);
+    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitStruct.Pin = NRI2C_SCL_PIN;
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    HAL_GPIO_Init(NRI2C_SCL_GPIO, &GPIO_InitStruct);
 }
 
 void I2C_Init(void)
 {
-	
-	SCL_Output();
-	SDA_Output();
-	SCL_H;
-	SDA_H;
+
+    SCL_Output();
+    SDA_Output();
+    SCL_H;
+    SDA_H;
 }
 
 //产生IIC起始信号
@@ -128,7 +126,7 @@ void I2C_Soft_NAck()
     delay_us(4);
 }
 
-int I2C_Soft_WaitAck(void) 	 //返回为:=1无Ack,=0有Ack
+int I2C_Soft_WaitAck(void) //返回为:=1无Ack,=0有Ack
 {
     uint8_t ErrTime = 0;
     SDA_Input();
@@ -141,7 +139,7 @@ int I2C_Soft_WaitAck(void) 	 //返回为:=1无Ack,=0有Ack
     while (SDA_Read)
     {
         ErrTime++;
-        if (ErrTime>250)
+        if (ErrTime > 250)
         {
             I2C_Soft_Stop();
             return 1;
@@ -172,7 +170,7 @@ void I2C_Soft_SendByte(uint8_t SendByte) //数据从高位到低位//
 }
 
 //读1个字节，ack=1时，发送ACK，ack=0，发送NACK
-uint8_t I2C_Soft_ReadByte(uint8_t Ack)  //数据从高位到低位//
+uint8_t I2C_Soft_ReadByte(uint8_t Ack) //数据从高位到低位//
 {
     uint8_t i = 8;
     uint8_t ReceiveByte = 0;
@@ -198,7 +196,6 @@ uint8_t I2C_Soft_ReadByte(uint8_t Ack)  //数据从高位到低位//
         I2C_Soft_NAck();
     return ReceiveByte;
 }
-
 
 // IIC写一个字节数据
 uint8_t IIC_Write_1Byte(uint8_t SlaveAddress, uint8_t REG_Address, uint8_t REG_data)
@@ -291,6 +288,5 @@ uint8_t IIC_Read_nByte(uint8_t SlaveAddress, uint8_t REG_Address, uint8_t len, u
     I2C_Soft_Stop();
     return 0;
 }
-
 
 /**************END OF FILE************/
