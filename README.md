@@ -12,6 +12,7 @@ STM32库，基于STM32CubeMX
     - 目前只支持0.96寸128*64OLED(I2C)
     - 硬件I2C测试通过
     - 软件I2C测试未通过
+- OLED_H：硬件I2C驱动OLED显示屏
 ##### HAL_APP为软件应用
 - NR_Printf：将printf用于USART输出
 
