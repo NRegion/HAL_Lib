@@ -11,6 +11,8 @@
 #define OLED_SDIN_Clr() HAL_GPIO_WritePin(GPIOD,GPIO_PIN_5,GPIO_PIN_RESET)//DIN
 #define OLED_SDIN_Set() HAL_GPIO_WritePin(GPIOD,GPIO_PIN_5,GPIO_PIN_SET)
 
+#define OLED_I2C        hi2c1
+
 #define OLED_CMD  0	//写命令
 #define OLED_DATA 1	//写数据
 #define uint8_t unsigned char

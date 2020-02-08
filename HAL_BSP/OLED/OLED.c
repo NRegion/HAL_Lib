@@ -94,6 +94,33 @@ void Send_Byte(uint8_t dat)
         dat <<= 1;
     }
 }
+// 硬件I2C
+// /**
+//   * @brief          write data/command to OLED, if you use spi, please rewrite the function
+//   * @param[in]      dat: the data ready to write
+//   * @param[in]      cmd: OLED_CMD means command; OLED_DATA means data
+//   * @retval         none
+//   */
+// /**
+//   * @brief          写数据或者指令到OLED， 如果使用的是SPI，请重写这个函数
+//   * @param[in]      dat: 要写入的字节
+//   * @param[in]      cmd: OLED_CMD 代表写入的字节是指令; OLED_DATA 代表写入的字节是数据
+//   * @retval         none
+//   */
+// void OLED_WR_Byte(uint8_t dat, uint8_t cmd)
+// {
+//     static uint8_t cmd_data[2];
+//     if(cmd == OLED_CMD)
+//     {
+//         cmd_data[0] = 0x00;
+//     }
+//     else
+//     {
+//         cmd_data[0] = 0x40;
+//     }
+//     cmd_data[1] = dat;
+//     HAL_I2C_Master_Transmit(&OLED_I2C, OLED_I2C_ADDRESS, cmd_data, 2, 10);
+// }
 
 //发送一个字节
 //向SSD1306写入一个字节。
