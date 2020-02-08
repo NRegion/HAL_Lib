@@ -1,5 +1,6 @@
 #include "OLED.h"
-
+#include "OLED_Font.h"
+//#include "i2c.h"
 uint8_t OLED_GRAM[144][8];
 
 void delay(uint32_t t)
@@ -94,7 +95,7 @@ void Send_Byte(uint8_t dat)
         dat <<= 1;
     }
 }
-// 硬件I2C
+// //硬件I2C
 // /**
 //   * @brief          write data/command to OLED, if you use spi, please rewrite the function
 //   * @param[in]      dat: the data ready to write

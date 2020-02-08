@@ -1,5 +1,5 @@
-#ifndef __OLED_FONT_H
-#define __OLED_FONT_H
+#ifndef _OLED_FONT_H_
+#define _OLED_FONT_H_
 
 //常用ASCII表
 //偏移量32

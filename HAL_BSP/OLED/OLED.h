@@ -1,15 +1,23 @@
 #ifndef _OLED_H_
 #define _OLED_H_
 
-#include "stdlib.h"
-#include "OLED_Font.h"
+#include "main.h"
+
+// the I2C address of oled
+#define OLED_I2C_ADDRESS    0x78
+
 //-----------------OLED接口定义----------------
+#define  OLED_SCL_GPIO GPIOB
+#define  OLED_SDA_GPIO GPIOB
 
-#define OLED_SCLK_Clr() HAL_GPIO_WritePin(GPIOG,GPIO_PIN_12,GPIO_PIN_RESET)//SCL
-#define OLED_SCLK_Set() HAL_GPIO_WritePin(GPIOG,GPIO_PIN_12,GPIO_PIN_SET)
+#define  OLED_SCL_PIN  GPIO_PIN_6
+#define  OLED_SDA_PIN  GPIO_PIN_7
 
-#define OLED_SDIN_Clr() HAL_GPIO_WritePin(GPIOD,GPIO_PIN_5,GPIO_PIN_RESET)//DIN
-#define OLED_SDIN_Set() HAL_GPIO_WritePin(GPIOD,GPIO_PIN_5,GPIO_PIN_SET)
+#define OLED_SCLK_Clr() HAL_GPIO_WritePin(OLED_SCL_GPIO,OLED_SCL_PIN,GPIO_PIN_RESET)//SCL
+#define OLED_SCLK_Set() HAL_GPIO_WritePin(OLED_SCL_GPIO,OLED_SCL_PIN,GPIO_PIN_SET)
+
+#define OLED_SDIN_Clr() HAL_GPIO_WritePin(OLED_SDA_GPIO,OLED_SDA_PIN,GPIO_PIN_RESET)//DIN
+#define OLED_SDIN_Set() HAL_GPIO_WritePin(OLED_SDA_GPIO,OLED_SDA_PIN,GPIO_PIN_SET)
 
 #define OLED_I2C        hi2c1
 
