@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include "usart.h"
 
-#define MY_UART huart4
+#define MY_UART huart1
 
 #ifdef __GNUC__
 /* With GCC, small printf (option LD Linker->Libraries->Small printf
@@ -23,3 +23,4 @@
 #endif /* __GNUC__ */
 
 #endif
+/************************END OF FILE************************/
